@@ -36,5 +36,7 @@ class Brave(BraveAPIClient):
             return response
         except requests.exceptions.HTTPError as e:
             logger.warning(f"HTTP error occurred: {e}")
+            raise e
         except requests.exceptions.RequestException as e:
             logger.warning(f"Request error occurred: {e}")
+            raise e
