@@ -1,7 +1,7 @@
 # Brave Search API
 
 ## Overview
-Python wrapper for the [Brave Search API](https://search.brave.com/api).
+Python wrapper for the [Brave Search API](https://brave.com/search/api/).
 
 Brave Search doesn’t track you or your queries, it's a privacy-preserving alternative to Google Search. It offers many endpoints for developers to build on top of. This module is a wrapper for the Brave Search API.
 
