@@ -9,7 +9,7 @@ from tenacity import wait_fixed
 
 from brave.client import BraveAPIClient
 from brave.exceptions import BraveError
-from brave.types import WebSearchApiResponse
+from brave.types import WebSearchApiResponse, ImageSearchApiResponse
 
 
 class AsyncBrave(BraveAPIClient):
@@ -50,6 +50,7 @@ class AsyncBrave(BraveAPIClient):
         goggles_id: Optional[str] = None,
         units: Optional[str] = None,
         extra_snippets: Optional[bool] = False,
+        raw: Optional[bool] = False,
     ) -> WebSearchApiResponse:
         """
         Perform a search using the Brave Search API.
@@ -118,5 +119,37 @@ class AsyncBrave(BraveAPIClient):
             # Handle errors (e.g., log them, raise exceptions)
             raise BraveError(f"API Error: {response.status_code} - {response.text}")
 
-        # return response.json()
+        if raw:
+            return response.json()
         return WebSearchApiResponse.model_validate(response.json())
+
+    async def image(
+        self,
+        q: str,
+        country: Optional[str] = None,
+        search_lang: Optional[str] = None,
+        count: Optional[int] = 20,
+        safesearch: Optional[str] = "moderate",
+        spellcheck: Optional[bool] = True,
+        raw: Optional[bool] = False,
+    ) -> ImageSearchApiResponse:
+        """
+        Perform an asynchronous image search using the Brave Search API.
+        """
+        if not q or len(q) > 400 or len(q.split()) > 50:
+            raise ValueError("Invalid query parameter 'q'")
+        params = {
+            "q": q,
+            "country": country,
+            "search_lang": search_lang,
+            "count": min(count, 20),
+            "safesearch": safesearch,
+            "spellcheck": spellcheck,
+        }
+        params = {k: v for k, v in params.items() if v is not None}
+        response = await self._get(params=params)
+        if response.status_code != 200:
+            raise BraveError(f"API Error: {response.status_code} - {response.text}")
+        if raw:
+            return response.json()
+        return ImageSearchApiResponse.model_validate(response.json())
