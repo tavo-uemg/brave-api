@@ -43,7 +43,7 @@ class BraveAPIClient:
 
         This will be overridden in the derived synchronous and asynchronous clients.
         """
-        pass
+        raise NotImplementedError(f"{self.__class__.__name__} must implement `_get()`")
 
     def search(
         self,
@@ -142,7 +142,8 @@ class BraveAPIClient:
         count: Optional[int] = 20,
         safesearch: Optional[str] = "moderate",
         spellcheck: Optional[bool] = True,
-    ) -> ImageSearchApiResponse:
+        raw: Optional[bool] = False,
+    ) -> ImageSearchApiResponse | dict:
         """
         Perform an image search using the Brave Search API.
 
@@ -160,9 +161,10 @@ class BraveAPIClient:
             Filter for adult content ('off', 'moderate', 'strict').
         spellcheck: bool
             Spellcheck the query (default: True).
+        raw: bool
+            If True, return the raw JSON response instead of a model.
         """
 
-        # Parameter validation and query parameter construction
         if not q or len(q) > 400 or len(q.split()) > 50:
             raise ValueError("Invalid query parameter 'q'")
 
@@ -174,11 +176,17 @@ class BraveAPIClient:
             "safesearch": safesearch,
             "spellcheck": spellcheck,
         }
-
-        # Filter out None values
         params = {k: v for k, v in params.items() if v is not None}
 
         # API request and response handling
         response = self._get(params=params)
+
+        # Error handling
+        if response.status_code != 200:
+            raise BraveError(f"API Error: {response.status_code} - {response.text}")
+
+        # Return raw JSON if requested
+        if raw:
+            return response.json()
 
         return ImageSearchApiResponse.model_validate(response.json())
