@@ -1,19 +1,10 @@
-from pydantic import AnyUrl
+from pydantic import BaseModel, HttpUrl, field_validator
 
+class AutoHttpUrl(BaseModel):
+    url: HttpUrl
 
-class AutoHttpUrl(AnyUrl):
-    """
-    URL type that prepends 'https://' if no scheme is provided.
-    """
-    allowed_schemes = {"http", "https"}
-
-    @classmethod
-    def __get_validators__(cls):
-        yield cls._prep_value
-        yield from super().__get_validators__()
-
-    @classmethod
-    def _prep_value(cls, value):
-        if isinstance(value, str) and "://" not in value:
-            return "https://" + value
-        return value
+    @field_validator('url', mode='before')
+    def prepend_http(cls, v):
+        if isinstance(v, str) and not v.startswith('http'):
+            return f'https://{v}'
+        return v
