@@ -1,6 +1,6 @@
-from pydantic import BaseModel
-from pydantic import Field
-from pydantic import HttpUrl
+from pydantic import BaseModel, Field, HttpUrl
+
+from ..shared.custom_url import AutoHttpUrl
 
 
 class Profile(BaseModel):
@@ -11,6 +11,6 @@ class Profile(BaseModel):
     """
 
     name: str = Field(description="The name of the profile.")
-    url: HttpUrl = Field(description="The original URL where the profile is available.")
+    url: AutoHttpUrl = Field(description="The original URL where the profile is available.")
     long_name: str = Field(description="The long name of the profile.")
     img: HttpUrl = Field(description="The served image URL representing the profile.")

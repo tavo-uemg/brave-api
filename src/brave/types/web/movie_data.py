@@ -2,6 +2,7 @@ from typing import List
 
 from pydantic import BaseModel
 from pydantic import Field
+from ..shared.custom_url import AutoHttpUrl
 
 from ..shared.thumbnail import Thumbnail
 from .person import Person
@@ -13,7 +14,7 @@ class MovieData(BaseModel):
 
     name: str = Field(description="Name of the movie.")
     description: str = Field(description="A short plot summary for the movie.")
-    url: str = Field(description="A URL serving a movie profile page.")
+    url: AutoHttpUrl = Field(description="A URL serving a movie profile page.")
     thumbnail: Thumbnail = Field(description="A thumbnail for a movie poster.")
     release: str = Field(description="The release date for the movie.")
     directors: List[Person] = Field(description="A list of people responsible for directing the movie.")

@@ -1,5 +1,4 @@
-from pydantic import BaseModel
-from pydantic import Field
+from pydantic import BaseModel, Field, HttpUrl
 
 
 class DataProvider(BaseModel):
@@ -9,6 +8,6 @@ class DataProvider(BaseModel):
         default="external", description="A type representing the source of data. This is usually external."
     )
     name: str = Field(description="The name of the data provider. This can be a domain.")
-    url: str = Field(description="The URL where the information is coming from.")
+    url: HttpUrl = Field(description="The URL where the information is coming from.")
     long_name: str = Field(description="The long name for the data provider.")
-    img: str = Field(description="The served URL for the image data.")
+    img: HttpUrl = Field(description="The served URL for the image data.")

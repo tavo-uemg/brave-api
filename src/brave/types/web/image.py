@@ -1,14 +1,15 @@
 from pydantic import BaseModel
 from pydantic import Field
 
+from ..shared.custom_url import AutoHttpUrl
 from ..shared.thumbnail import Thumbnail
 
 
 class ImageProperties(BaseModel):
     """Metadata on an image."""
 
-    url: str = Field(description="The image URL.")
-    resized: str = Field(description="The resized image.")
+    url: AutoHttpUrl = Field(description="The image URL.")
+    resized: AutoHttpUrl = Field(description="The resized image.")
     height: int = Field(description="The height of the image.")
     width: int = Field(description="The width of the image.")
     format: str = Field(description="The format specifier for the image.")
@@ -19,5 +20,5 @@ class Image(BaseModel):
     """A model describing an image."""
 
     thumbnail: Thumbnail = Field(description="The thumbnail associated with the image.")
-    url: str = Field(description="The URL of the image.")
+    url: AutoHttpUrl = Field(description="The URL of the image.")
     properties: ImageProperties = Field(description="Metadata on the image.")

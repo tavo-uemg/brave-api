@@ -4,6 +4,7 @@ from typing import Optional
 
 from pydantic import Field
 
+from ..shared.custom_url import AutoHttpUrl
 from ..shared.meta_url import MetaUrl
 from ..shared.thumbnail import Thumbnail
 from .data_provider import DataProvider
@@ -27,7 +28,7 @@ class GraphInfobox(Result):
     thumbnail: Thumbnail = Field(description="The thumbnail associated with the entity.")
     attributes: List[Any] = Field(description="A list of attributes about the entity.")
     profiles: List[Profile] = Field(description="The profiles associated with the entity.")
-    website_url: str = Field(description="The official website pertaining to the entity.")
+    website_url: AutoHttpUrl = Field(description="The official website pertaining to the entity.")
     attributes_shown: int = Field(description="The number of attributes to be shown about the entity.")
     ratings: List[Rating] = Field(description="Any ratings given to the entity.")
     providers: List[DataProvider] = Field(description="A list of data sources for the entity.")

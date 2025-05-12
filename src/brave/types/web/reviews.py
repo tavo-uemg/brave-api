@@ -2,6 +2,7 @@ from typing import List
 
 from pydantic import BaseModel
 from pydantic import Field
+from ..shared.custom_url import AutoHttpUrl
 
 from ..shared.thumbnail import Thumbnail
 from .person import Person
@@ -16,7 +17,7 @@ class TripAdvisorReview(BaseModel):
     date: str = Field(description="The date when the review was published.")
     rating: Rating = Field(description="A rating given by the reviewer.")
     author: Person = Field(description="The author name of the review.")
-    review_url: str = Field(description="A URL link to the page where the review can be found.")
+    review_url: AutoHttpUrl = Field(description="A URL link to the page where the review can be found.")
     language: str = Field(description="The language of the review.")
 
 
@@ -24,7 +25,7 @@ class Reviews(BaseModel):
     """The reviews associated with an entity."""
 
     results: List[TripAdvisorReview] = Field(description="A list of TripAdvisor reviews for the entity.")
-    viewMoreUrl: str = Field(description="A URL to a web page where more information on the result can be seen.")
+    viewMoreUrl: AutoHttpUrl = Field(description="A URL to a web page where more information on the result can be seen.")
     reviews_in_foreign_language: bool = Field(description="Any reviews available in a foreign language.")
 
 
