@@ -5,6 +5,3 @@ AutoHttpUrl = Annotated[
     str,
     AfterValidator(lambda v: f"https://{v}" if not v.startswith("http") else v)
 ]
-
-
-AutoHttpUrl('oi.com')
