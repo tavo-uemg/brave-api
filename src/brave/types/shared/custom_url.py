@@ -1,11 +1,10 @@
-from pydantic import BaseModel, HttpUrl, field_validator
+from pydantic import AfterValidator
+from typing import Annotated
 
-class AutoHttpUrl(BaseModel):
-    url: HttpUrl
+AutoHttpUrl = Annotated[
+    str,
+    AfterValidator(lambda v: f"https://{v}" if not v.startswith("http") else v)
+]
 
-    @field_validator('url', mode='before')
-    @classmethod
-    def prepend_http(cls, v):
-        if isinstance(v, str) and not v.startswith('http'):
-            return f'https://{v}'
-        return v
+
+AutoHttpUrl('oi.com')
