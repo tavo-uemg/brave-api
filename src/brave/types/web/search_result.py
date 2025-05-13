@@ -16,7 +16,7 @@ from .creative_work import CreativeWork
 from .deep_result import DeepResult
 from .music_recording import MusicRecording
 from .software import Software
-from .videos import Video
+from .videos import VideoData
 from .recipe import Recipe
 from .organization import Organization
 from ..shared.meta_url import MetaUrl
@@ -67,7 +67,7 @@ class SearchResult(Result):
     locations: Optional[Locations] = Field(
         default=None, description="The locations associated with the web search result."
     )
-    video: Optional[Video] = Field(default=None, description="The video associated with the web search result.")
+    video: Optional[VideoData] = Field(default=None, description="The video associated with the web search result.")
     movie: Optional[MovieData] = Field(default=None, description="The movie associated with the web search result.")
     faq: Optional[FAQ] = Field(
         default=None, description="Any frequently asked questions associated with the web search result."
