@@ -24,13 +24,32 @@ from .videos import Videos
 logger = logging.getLogger(__name__)
 
 
+class Summarizer(BaseModel):
+    """Details on getting the summary."""
+
+    type: str = Field(default="summarizer", description="The value is always summarizer.")
+    key: str = Field(description="The key for the summarizer API.")
+
+
+class RichCallbackInfo(BaseModel):
+    """Callback information for rich results."""
+
+    type: str = Field(default="rich", description="The value is always rich.")
+    hint: Optional["RichCallbackHint"] = Field(
+        default=None, description="The hint for the rich result."
+    )
+
+class RichCallbackHint(BaseModel):
+    """The hint for the rich result."""
+
+    vertical: str = Field(description="The name of the vertical of the rich result.")
+    callback_key: str = Field(description="The callback key for the rich result.")
+
+
 class WebSearchApiResponse(BaseModel):
     """Brave Search API response object"""
 
-    query: Query = Field(description="Search query string and its modifications that are used for search.")
-    mixed: Optional[MixedResponse] = Field(default=None, description="Preferred ranked order of search results.")
     type: str = Field(default="search", description="The type of web search API result. The value is always search.")
-    web: Optional[Search] = Field(default=None, description="Web search results relevant to the query.")
     discussions: Optional[Discussions] = Field(
         default=None, description="Discussions clusters aggregated from forum posts that are relevant to the query."
     )
@@ -43,8 +62,19 @@ class WebSearchApiResponse(BaseModel):
     locations: Optional[Locations] = Field(
         default=None, description="Places of interest (POIs) relevant to location sensitive queries."
     )
+    mixed: Optional[MixedResponse] = Field(default=None, description="Preferred ranked order of search results.")
     news: Optional[News] = Field(default=None, description="News results relevant to the query.")
+    query: Query = Field(description="Search query string and its modifications that are used for search.")
     videos: Optional[Videos] = Field(default=None, description="Videos relevant to the query.")
+    web: Optional[Search] = Field(default=None, description="Web search results relevant to the query.")
+    summarizer: Optional[Summarizer] = Field(
+        default=None,
+        description="Summary key to get summary results for the query.",
+    )
+    rich: Optional[RichCallbackInfo] = Field(
+        default=None,
+        description="Callback information for rich results.",
+    )
 
     def __str__(self) -> str:
         """Return the model as a JSON string."""

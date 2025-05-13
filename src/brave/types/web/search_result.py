@@ -10,19 +10,20 @@ import requests
 from pydantic import Field
 
 from brave.exceptions import BraveError
+from .movie_data import MovieData
 
-from ..not_implemented import CreativeWork
-from ..not_implemented import DeepResult
-from ..not_implemented import Movie
-from ..not_implemented import MusicRecording
-from ..not_implemented import Software
-from ..not_implemented import Video
+from .creative_work import CreativeWork
+from .deep_result import DeepResult
+from .music_recording import MusicRecording
+from .software import Software
+from .videos import Video
+from .recipe import Recipe
+from .organization import Organization
 from ..shared.meta_url import MetaUrl
 from ..shared.thumbnail import Thumbnail
 from .article import Article
 from .book import Book
 from .faq import FAQ
-from .faq import QA
 from .faq import QAPage
 from .location_result import LocationResult
 from .location_result import Locations
@@ -47,6 +48,9 @@ class SearchResult(Result):
         description="A type identifying a web search result. The value is always search_result.",
     )
     subtype: str = Field(default="generic", description="A sub type identifying the web search result type.")
+    is_live: bool = Field(
+        default=False, description="Whether the web search result is currently live. Default value is False."
+    )
     deep_results: Optional[DeepResult] = Field(
         default=None, description="Gathered information on a web search result."
     )
@@ -64,7 +68,7 @@ class SearchResult(Result):
         default=None, description="The locations associated with the web search result."
     )
     video: Optional[Video] = Field(default=None, description="The video associated with the web search result.")
-    movie: Optional[Movie] = Field(default=None, description="The movie associated with the web search result.")
+    movie: Optional[MovieData] = Field(default=None, description="The movie associated with the web search result.")
     faq: Optional[FAQ] = Field(
         default=None, description="Any frequently asked questions associated with the web search result."
     )
@@ -76,7 +80,7 @@ class SearchResult(Result):
     )
     rating: Optional[Rating] = Field(default=None, description="Rating found for the web search result page.")
     article: Optional[Article] = Field(default=None, description="An article found for the web search result page.")
-    product: Optional[Product] = Field(
+    product: Optional[Union[Product, Review]] = Field(
         default=None, description="The main product and a review that is found on the web search result page."
     )
     product_cluster: Optional[List[Union[Product, Review]]] = Field(
@@ -98,6 +102,8 @@ class SearchResult(Result):
     software: Optional[Software] = Field(
         default=None, description="Aggregated information on a software product found on the web search result page."
     )
+    recipe: Optional[Recipe] = Field(default=None, description="Aggregated information on a recipe found on the web search result page.")
+    organization: Optional[Organization] = Field(default=None, description="Aggregated information on a organization found on the web search result page.")
     content_type: Optional[str] = Field(
         default=None, description="The content type associated with the search result page."
     )

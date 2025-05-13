@@ -25,12 +25,15 @@ class Query(BaseModel):
     altered: Optional[str] = Field(default=None, description="The altered query for which the search was performed.")
     safe_search: Optional[bool] = Field(default=None, description="Whether safesearch was enabled.")
     is_navigational: Optional[bool] = Field(default=None, description="Whether the query is a navigational query to a domain.")
-    is_news_breaking: Optional[bool] = Field(default=None, description="Whether the query has location relevance.")
+    is_geolocated: Optional[bool] = Field(
+        default=None, description="Whether the query has location relevance."
+    )
     local_decision: Optional[str] = Field(
         default=None, description="Whether the query was decided to be location sensitive."
     )
     local_locations_idx: Optional[int] = Field(default=None, description="The index of the location.")
     is_trending: Optional[bool] = Field(default=None, description="Whether the query is trending.")
+    is_news_breaking: Optional[bool] = Field(default=None, description="Whether the query has location relevance.")
     ask_for_location: Optional[bool] = Field(
         default=None, description="Whether the query requires location information for better results."
     )

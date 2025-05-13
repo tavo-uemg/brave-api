@@ -10,6 +10,7 @@ class ImageProperties(BaseModel):
 
     url: AutoHttpUrl = Field(description="The image URL.")
     resized: AutoHttpUrl = Field(description="The resized image.")
+    placeholder: AutoHttpUrl = Field(description="The placeholder image.")
     height: int = Field(description="The height of the image.")
     width: int = Field(description="The width of the image.")
     format: str = Field(description="The format specifier for the image.")

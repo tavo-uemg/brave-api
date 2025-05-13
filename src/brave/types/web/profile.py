@@ -11,6 +11,6 @@ class Profile(BaseModel):
     """
 
     name: str = Field(description="The name of the profile.")
-    url: AutoHttpUrl = Field(description="The original URL where the profile is available.")
     long_name: str = Field(description="The long name of the profile.")
+    url: AutoHttpUrl = Field(description="The original URL where the profile is available.")
     img: HttpUrl = Field(description="The served image URL representing the profile.")

@@ -27,6 +27,6 @@ class Result(BaseModel):
     page_fetched: Optional[str] = Field(
         default=None, description="A date representing when the web page was last fetched."
     )
-    language: Optional[str] = Field(default=None, description="A language classification for the web page.")
     profile: Optional[Profile] = Field(default=None, description="A profile associated with the web page.")
+    language: Optional[str] = Field(default=None, description="A language classification for the web page.")
     family_friendly: Optional[bool] = Field(default=None, description="Whether the web page is family friendly.")

@@ -6,15 +6,7 @@ from pydantic import Field
 
 from ..shared.thumbnail import Thumbnail
 from .person import Person
-
-
-class Organization(Person):
-    """An entity responsible for another entity."""
-
-    type: str = Field(
-        default="organization",
-        description="A type string identifying an organization. The value is always organization.",
-    )
+from .organization import Organization
 
 
 class Article(BaseModel):

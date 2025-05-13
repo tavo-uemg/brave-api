@@ -6,6 +6,7 @@ from pydantic import Field
 
 from ..shared.meta_url import MetaUrl
 from ..shared.thumbnail import Thumbnail
+from .profile import Profile
 from .result import Result
 
 
@@ -17,6 +18,10 @@ class VideoData(BaseModel):
     creator: Optional[str] = Field(default=None, description="The creator of the video.")
     publisher: Optional[str] = Field(default=None, description="The publisher of the video.")
     thumbnail: Optional[Thumbnail] = Field(default=None, description="A thumbnail associated with the video.")
+    tags: List[str] = Field(default_factory=list, description="A list of tags associated with the video.")
+    author: Optional[Profile] = Field(default=None, description="Author of the video.")
+    requires_subscription: bool = Field(default=False, description="Whether the video requires a subscription to watch.")
+
 
 
 class VideoResult(Result):
