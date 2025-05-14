@@ -18,9 +18,9 @@ class VideoData(BaseModel):
     creator: Optional[str] = Field(default=None, description="The creator of the video.")
     publisher: Optional[str] = Field(default=None, description="The publisher of the video.")
     thumbnail: Optional[Thumbnail] = Field(default=None, description="A thumbnail associated with the video.")
-    tags: List[str] = Field(description="A list of tags associated with the video.")
+    tags: List[str] = Field(default=[], description="A list of tags associated with the video.")
     author: Optional[Profile] = Field(default=None, description="Author of the video.")
-    requires_subscription: bool = Field(description="Whether the video requires a subscription to watch.")
+    requires_subscription: Optional[bool] = Field(default=None, description="Whether the video requires a subscription to watch.")
 
 
 
