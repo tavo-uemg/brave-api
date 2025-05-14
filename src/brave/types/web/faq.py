@@ -31,5 +31,5 @@ class FAQ(BaseModel):
 
     type: str = Field(default="faq", description="The FAQ result type identifier. The value is always faq.")
     results: List[QA] = Field(
-        default=[], description="A list of aggregated question-answer results relevant to the query."
+        description="A list of aggregated question-answer results relevant to the query."
     )

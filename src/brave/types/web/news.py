@@ -16,9 +16,9 @@ class NewsResult(Result):
         default=None, description="The aggregated information on the URL representing a news result."
     )
     source: Optional[str] = Field(default=None, description="The source of the news.")
-    breaking: bool = Field(default=False, description="Whether the news result is currently a breaking news.")
+    breaking: bool = Field(description="Whether the news result is currently a breaking news.")
     is_live: bool = Field(
-        default=False, description="Whether the news result is currently live."
+        description="Whether the news result is currently live."
     )
     thumbnail: Optional[Thumbnail] = Field(default=None, description="The thumbnail associated with the news result.")
     age: Optional[str] = Field(default=None, description="A string representing the age of the news article.")
