@@ -60,7 +60,7 @@ class LocationResult(Result):
     timezone_offset: str = Field(description="The utc offset of the timezone.")
 
 
-class Locations(LocationResult):
+class Locations(BaseModel):
     """A model representing location results."""
 
     type: str = Field(default="locations", description="Location type identifier. The value is always locations.")

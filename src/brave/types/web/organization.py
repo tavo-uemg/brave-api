@@ -14,6 +14,6 @@ class Organization(Thing):
         description="A type string identifying an organization. The value is always organization.",
     )
     contact_points: List[ContactPoint] = Field(
-        default_factory=list,
+        default_factory=[],
         description="A list of contact points for the organization."
     )

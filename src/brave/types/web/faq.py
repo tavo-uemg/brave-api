@@ -30,6 +30,6 @@ class FAQ(BaseModel):
     """Frequently asked questions relevant to the search query term."""
 
     type: str = Field(default="faq", description="The FAQ result type identifier. The value is always faq.")
-    results: Optional[List[QA]] = Field(
-        default=None, description="A list of aggregated question-answer results relevant to the query."
+    results: List[QA] = Field(
+        default=[], description="A list of aggregated question-answer results relevant to the query."
     )

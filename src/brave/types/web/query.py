@@ -23,7 +23,7 @@ class Query(BaseModel):
         description="Whether there is more content available for query, but the response was restricted due to safesearch."
     )
     altered: Optional[str] = Field(default=None, description="The altered query for which the search was performed.")
-    safe_search: Optional[bool] = Field(default=None, description="Whether safesearch was enabled.")
+    safesearch: Optional[bool] = Field(default=None, description="Whether safesearch was enabled.")
     is_navigational: Optional[bool] = Field(default=None, description="Whether the query is a navigational query to a domain.")
     is_geolocated: Optional[bool] = Field(
         default=None, description="Whether the query has location relevance."
