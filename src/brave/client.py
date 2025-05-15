@@ -59,7 +59,7 @@ class BraveAPIClient:
         spellcheck: Optional[bool] = True,
         result_filter: Optional[str] = None,
         goggles_id: Optional[str] = None,
-        googles: Optional[List[str]] = None,
+        goggles: Optional[List[str]] = None,
         units: Optional[str] = None,
         extra_snippets: Optional[bool] = False,
         summary: Optional[bool] = False,
@@ -94,7 +94,7 @@ class BraveAPIClient:
             Types of results to include.
         goggles_id: str
             The goggle URL to rerank search results.
-        googles: list
+        goggles: list
             List of goggle URLs to rerank search results.
         units: str
             Measurement units (metric or imperial).
@@ -121,7 +121,7 @@ class BraveAPIClient:
             "spellcheck": spellcheck,
             "result_filter": result_filter,
             "goggles_id": goggles_id,
-            "googles": googles,
+            "googles": goggles,
             "units": units,
             "extra_snippets": extra_snippets,
             "summary": summary,
